@@ -19,9 +19,24 @@
 
     binds.whichKey.enable = true;
     statusline.lualine.enable = true;
-    git.gitsigns.enable = true;
     notes.todo-comments.enable = true;
     runner.run-nvim.enable = true;
+
+    git = {
+      gitsigns.enable = true;
+    };
+
+    filetree.nvimTree = {
+      enable = true;
+      openOnSetup = false;
+      setupOpts = {
+        git.enable = true;
+        diagnostics.enable = true;
+        filters.git_ignored = true;
+        modified.enable = true;
+        hijack_cursor = true;
+      };
+    };
 
     visuals = {
       fidget-nvim.enable = true;
@@ -54,10 +69,6 @@
         picker.enabled = true;
       };
     };
-
-    # TODO: Add a proper explorer
-
-    # TODO: Pane & tab navigation
 
     mini = {
       ai.enable = true; # Text objects like a(.
