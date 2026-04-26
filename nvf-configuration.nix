@@ -30,9 +30,11 @@
 
     ui = {
       colorizer.enable = true; # Highlight colors
-      illuminate.enable = true; # Highlight word under cursor
+      colorful-menu-nvim.enable = true; # Colors in the completion menu
+      illuminate.enable = false; # Highlight word under cursor
       nvim-ufo.enable = true; # Folding
       ui2.enable = true;
+      modes-nvim.enable = false; # Color current line. Breaks visual mode when combined with which-key
     };
 
     utility = {
@@ -52,6 +54,10 @@
         picker.enabled = true;
       };
     };
+
+    # TODO: Add a proper explorer
+
+    # TODO: Pane & tab navigation
 
     mini = {
       ai.enable = true; # Text objects like a(.
@@ -111,9 +117,20 @@
       inlayHints.enable = true;
       lightbulb.enable = true;
       lspkind.enable = true; # Add icons
-      # TODO: Look at LSP saga
 
       presets.harper.enable = true; # Spellcheck
+
+      lspsaga.enable = true;
+      # These mappings have been disabled in favor of LspSaga mappings in the keymaps section
+      mappings = {
+        codeAction = null;
+        hover = null;
+        renameSymbol = null;
+        openDiagnosticFloat = null;
+        nextDiagnostic = null;
+        previousDiagnostic = null;
+        listDocumentSymbols = null;
+      };
 
       servers = {
         "harper" = {
@@ -145,12 +162,57 @@
     };
 
     keymaps = [
+      # LSP Saga stuff
       {
-        key = "<leader>vc";
+        key = "<leader>la"; # Replace LSP code action
         mode = "n";
         silent = true;
-        action = ":VimtexCompile<CR>";
+        action = ":Lspsaga code_action<CR>";
       }
+      {
+        key = "<leader>le"; # Replace LSP error
+        mode = "n";
+        silent = true;
+        action = ":Lspsaga show_cursor_diagnostics<CR>";
+      }
+      {
+        key = "<leader>lgn"; # Replace LSP next diagnostic
+        mode = "n";
+        silent = true;
+        action = ":Lspsaga diagnostic_jump_next<CR>";
+      }
+      {
+        key = "<leader>lgp"; # Replace LSP previous diagnostic
+        mode = "n";
+        silent = true;
+        action = ":Lspsaga diagnostic_jump_prev<CR>";
+      }
+      {
+        key = "K"; # Replace LSP hover
+        mode = "n";
+        silent = true;
+        action = ":Lspsaga hover_doc<CR>";
+      }
+      {
+        key = "<leader>lr"; # Replace LSP rename
+        mode = "n";
+        silent = true;
+        action = ":Lspsaga rename<CR>";
+      }
+      {
+        key = "<leader>lS"; # Replace LSP Symbols
+        mode = "n";
+        silent = true;
+        action = ":Lspsaga outline<CR>";
+      }
+      {
+        key = "<leader>ll";
+        mode = "n";
+        silent = true;
+        action = ":Lspsaga finder<CR>";
+      }
+
+      # File explorer
       {
         key = "\\";
         mode = [ "n" ];
@@ -163,5 +225,20 @@
       }
     ];
 
+    autocmds = [
+      {
+        # Conditional key bindings for LaTeX
+        event = [ "FileType" ];
+        pattern = [ "tex" ];
+        callback = lib.generators.mkLuaInline ''
+          function(ev)
+            vim.keymap.set("n", "<leader>rv", ":VimtexCompile<CR>", {
+              buffer = ev.buf,
+              desc = "Compile doc",
+            })
+          end
+        '';
+      }
+    ];
   };
 }
