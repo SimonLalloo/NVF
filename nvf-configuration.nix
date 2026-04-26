@@ -168,24 +168,28 @@
         mode = "n";
         silent = true;
         action = ":Lspsaga code_action<CR>";
+        desc = "Code action";
       }
       {
         key = "<leader>le"; # Replace LSP error
         mode = "n";
         silent = true;
         action = ":Lspsaga show_cursor_diagnostics<CR>";
+        desc = "Show error";
       }
       {
         key = "<leader>lgn"; # Replace LSP next diagnostic
         mode = "n";
         silent = true;
         action = ":Lspsaga diagnostic_jump_next<CR>";
+        desc = "Go to next diagnostic";
       }
       {
         key = "<leader>lgp"; # Replace LSP previous diagnostic
         mode = "n";
         silent = true;
         action = ":Lspsaga diagnostic_jump_prev<CR>";
+        desc = "Go to previous diagnostic";
       }
       {
         key = "K"; # Replace LSP hover
@@ -198,18 +202,61 @@
         mode = "n";
         silent = true;
         action = ":Lspsaga rename<CR>";
+        desc = "Rename symbol";
       }
       {
         key = "<leader>lS"; # Replace LSP Symbols
         mode = "n";
         silent = true;
         action = ":Lspsaga outline<CR>";
+        desc = "Show symbols/outline";
       }
       {
         key = "<leader>ll";
         mode = "n";
         silent = true;
         action = ":Lspsaga finder<CR>";
+        desc = "Show references & usages";
+      }
+
+      # Basic stuff
+      {
+        key = "<leader>y";
+        mode = [
+          "n"
+          "v"
+        ];
+        silent = true;
+        action = "\"+y";
+        desc = "Yank to clipboard";
+      }
+      {
+        key = "<Esc>";
+        mode = "n";
+        silent = true;
+        action = "<cmd>nohlsearch<CR>";
+      }
+
+      # Keybinds to make split navigation easier. (Ctrl+ vim keys)
+      {
+        key = "<C-h>";
+        mode = "n";
+        action = "<C-w><C-h>";
+      }
+      {
+        key = "<C-l>";
+        mode = "n";
+        action = "<C-w><C-l>";
+      }
+      {
+        key = "<C-j>";
+        mode = "n";
+        action = "<C-w><C-j>";
+      }
+      {
+        key = "<C-k>";
+        mode = "n";
+        action = "<C-w><C-k>";
       }
 
       # File explorer
