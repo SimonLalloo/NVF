@@ -76,7 +76,7 @@
       surround.enable = true; # Modify surroundings like brackets.
       notify.enable = true;
       indentscope.enable = true;
-      files.enable = true;
+      files.enable = false; # File explorer thing
       pick.enable = false;
       extra.enable = false; # Add explorer via picker
 
@@ -164,6 +164,7 @@
       rust.enable = true;
       rust.extensions.crates-nvim.enable = true;
       python.enable = true;
+      java.enable = true;
     };
 
     extraPlugins = {
@@ -268,18 +269,6 @@
         key = "<C-k>";
         mode = "n";
         action = "<C-w><C-k>";
-      }
-
-      # File explorer
-      {
-        key = "\\";
-        mode = [ "n" ];
-        lua = true;
-        action = ''
-          function()
-            require('mini.files').open()
-          end
-        '';
       }
     ];
 
