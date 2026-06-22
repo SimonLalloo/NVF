@@ -153,6 +153,25 @@
       };
     };
 
+    # This block disables default java formatting and re-enables it with the
+    # Google style using conform-nvim.
+    luaConfigRC.jdtls-settings = lib.nvim.dag.entryAfter [ "lsp-servers" ] ''
+      vim.lsp.config("jdt-language-server", {
+        settings = {
+          java = {
+            format = { enabled = false },
+          },
+        },
+      })
+    '';
+    formatter.conform-nvim = {
+      enable = true;
+      setupOpts = {
+        formatters_by_ft.java = [ "google-java-format" ];
+        formatters.google-java-format.command = lib.getExe pkgs.google-java-format;
+      };
+    };
+
     # TODO: DSP
 
     languages = {
